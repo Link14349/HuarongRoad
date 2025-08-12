@@ -3,6 +3,7 @@ let canvas = document.getElementById("canvas");
 let ctx = canvas.getContext("2d");
 canvas.width = 400;
 canvas.height = 500;
+document.getElementById("input").value = "3114\n3114\n5667\n5007\n2222";
 
 class Box {
     constructor(data = null) {
@@ -413,20 +414,20 @@ function newGame() {
         }
         console.log(data)
     } else {
-        // data = [
-        //     [3, 1, 1, 4],
-        //     [3, 1, 1, 4],
-        //     [5, 6, 6, 7],
-        //     [5, 0, 0, 7],
-        //     [2, 2, 2, 2]
-        // ];
         data = [
-            [4, 5, 5, 2],
-            [4, 0, 2, 2],
-            [2, 1, 1, 3],
-            [2, 1, 1, 3],
-            [2, 2, 0, 2]
+            [3, 1, 1, 4],
+            [3, 1, 1, 4],
+            [5, 6, 6, 7],
+            [5, 0, 0, 7],
+            [2, 2, 2, 2]
         ];
+        // data = [
+        //     [4, 5, 5, 2],
+        //     [4, 0, 2, 2],
+        //     [2, 1, 1, 3],
+        //     [2, 1, 1, 3],
+        //     [2, 2, 0, 2]
+        // ];
     }
     box = new Box(data);
     box.draw();
