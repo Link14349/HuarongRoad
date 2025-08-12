@@ -439,6 +439,53 @@ document.getElementById("start").onclick = function() {
     document.getElementById("tipsOutput").style.display = "none";
     newGame();
 };
+document.getElementById("new").onclick = function() {
+    document.getElementById("output").style.display = "none";
+    document.getElementById("step").style.display = "none";
+    document.getElementById("tipsOutput").style.display = "none";
+    // 随机生成棋盘
+    let data = [];
+    for (let i = 0; i < 5; i++) {
+        data.push([]);
+        for (let j = 0; j < 4; j++) {
+            data[i].push(0);
+        }
+    }
+    generalCont = Math.floor(Math.random() * 3) + 3; // 2~5个将军
+    // 生成曹操
+    let caoi, caoj;
+    do {
+        caoi = Math.floor(Math.random() * 4);
+        caoj = Math.floor(Math.random() * 3);
+    } while (caoj == 1 && caoi >= 3);
+    data[caoi][caoj] = 1;
+    data[caoi][caoj + 1] = 1;
+    data[caoi + 1][caoj] = 1;
+    data[caoi + 1][caoj + 1] = 1;
+    // 生成将军
+    for (let i = 0; i < generalCont; i++) {
+        let gi, gj, dir;
+        do {
+            gi = Math.floor(Math.random() * 5);
+            gj = Math.floor(Math.random() * 4);
+            dir = Math.random() < 0.5 ? 1 : 0; // 0: 横向, 1: 纵向
+        } while (gi + (1 - dir) >= 5 || gj + dir >= 4 || data[gi][gj] != 0 || data[gi + (1 - dir)][gj + dir] != 0);
+        data[gi][gj] = i + 3;
+        data[gi + (1 - dir)][gj + dir] = i + 3;
+    }
+    // 生成士兵
+    let soldierCont = 14 - generalCont * 2;
+    for (let i = 0; i < soldierCont; i++) {
+        let si, sj;
+        do {
+            si = Math.floor(Math.random() * 5);
+            sj = Math.floor(Math.random() * 4);
+        } while (data[si][sj] != 0);
+        data[si][sj] = 2; // 士兵编号为2
+    }
+    document.getElementById("input").value = data.map(row => row.join("")).join("\n");
+    newGame();
+};
 
 let tips = [];
 document.getElementById("tips").onclick = function() {
