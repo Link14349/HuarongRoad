@@ -34,6 +34,17 @@ class Box {
             }
         }
     }
+    restore(box) {
+        for (let i = 0; i < 5; i++) {
+            for (let j = 0; j < 4; j++) {
+                this.data[i][j] = box.data[i][j];
+            }
+        }
+        for (let j in box.generls) {
+            this.generls[j] = box.generls[j].slice();
+        }
+        this.cao = box.cao.slice();
+    }
     movable(ix, iy, direction) {
         if (direction[0] == 0 && direction[1] == 0) return true;
         if (direction[0] != 0 && direction[1] != 0) {
@@ -260,11 +271,13 @@ function bfs(box) {
         visited.add(state);
         let currentBox = new Box();
         // currentBox.fromHash(state);
+        let stateBox = new Box();
+        stateBox.fromHash(state);
         for (let k = 0; k < 4; k++) {
             let map = {};
             for (let i = 0; i < 5; i++) {
                 for (let j = 0; j < 4; j++) {
-                    currentBox.fromHash(state);
+                    currentBox.restore(stateBox);
                     let id = currentBox.data[i][j];
                     if (id == 0) continue;
                     if (id != 2 && map[id]) continue;
